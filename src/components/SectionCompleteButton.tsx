@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { playCompletionSound } from '../utils/sound';
 
 interface SectionCompleteButtonProps {
   sectionId: string;
@@ -18,6 +19,11 @@ export const SectionCompleteButton = ({
   const handleClick = () => {
     setIsAnimating(true);
     onToggleComplete(sectionId);
+
+    // Play completion sound when marking as complete (not when uncompleting)
+    if (!isCompleted) {
+      playCompletionSound();
+    }
 
     setTimeout(() => {
       setIsAnimating(false);
